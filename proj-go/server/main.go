@@ -15,7 +15,6 @@ func generateData(N int) []DataEntry {
 	data := make([]DataEntry, N)
 
 	for i := 0; i < N; i++ {
-		//random from 0 to 10000000
 		K := rand.Intn(100000)
 
 		data[i] = DataEntry{
@@ -88,7 +87,6 @@ func main() {
 		startTimeUnix := currentUnixTime()
 
 		entries := DbGetEntries(db)
-
 		sort.Slice(entries, func(i, j int) bool {
 			return entries[i].Value < entries[j].Value
 		})

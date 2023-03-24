@@ -10,13 +10,9 @@ use rand::Rng;
 mod db;
 
 fn generate_data(n: u32) -> Vec<db::DataEntry> {
-    // declare new DataEntry vector of size N
-    let size = n as usize;
     let mut data = Vec::<db::DataEntry>::new();
 
-    // get random number between 0 and 100000
-
-    for i in 0..size {
+    for i in 0..(n as usize) {
         let rand: u32 = rand::thread_rng().gen_range(0..100000);
         data.push(db::DataEntry {
             name: format!("name_{}", (10000000 - i)),

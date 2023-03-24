@@ -5,7 +5,6 @@ const webserver = new Server();
 const db = new Db();
 
 const generateData = (N: number = 1000): Array<DataEntry> => {
-    // new array of size N
     const data = new Array<DataEntry>(N);
 
     for (let i = 0; i < N; i++) {
