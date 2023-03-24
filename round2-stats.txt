@@ -1,0 +1,49 @@
+> cassowary run -u http://127.0.0.1:3001/get_first_values?n=5000 -c 5 -n 1000
+Starting Load Test with 1000 requests using 5 concurrent users
+
+ 100% [========================================] 10.185520375s
+
+
+ TCP Connect.....................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+ Server Processing...............: Avg/mean=49.99ms     Median=49.00ms  p(95)=75.00ms
+ Content Transfer................: Avg/mean=0.01ms      Median=0.00ms   p(95)=0.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 98.18
+
+
+> cassowary run -u http://127.0.0.1:3002/get_first_values?n=5000 -c 5 -n 1000
+Starting Load Test with 1000 requests using 5 concurrent users
+
+ 100% [========================================] 3.252455333s
+
+
+ TCP Connect.....................: Avg/mean=0.20ms      Median=0.00ms   p(95)=0.00ms
+ Server Processing...............: Avg/mean=15.63ms     Median=15.00ms  p(95)=19.00ms
+ Content Transfer................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 307.46
+
+
+> cassowary run -u http://127.0.0.1:3003/get_first_values?n=5000 -c 5 -n 1000
+Starting Load Test with 1000 requests using 5 concurrent users
+
+ 100% [========================================] 4.434550333s
+
+
+ TCP Connect.....................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+ Server Processing...............: Avg/mean=21.55ms     Median=20.00ms  p(95)=34.00ms
+ Content Transfer................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 225.50

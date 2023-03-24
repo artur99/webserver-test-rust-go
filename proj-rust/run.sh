@@ -1,0 +1,1 @@
+cargo build --release && ./target/release/proj-rust

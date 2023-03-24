@@ -1,0 +1,28 @@
+GET http://localhost:3001/ HTTP/1.1
+###
+
+GET http://localhost:3001/reset_and_insert_data?n=10000 HTTP/1.1
+###
+
+GET http://localhost:3001/get_first_values?n=7000 HTTP/1.1
+###
+
+GET http://localhost:3002/ HTTP/1.1
+###
+
+GET http://localhost:3002/reset_and_insert_data?n=10000 HTTP/1.1
+###
+
+GET http://localhost:3002/get_first_values?n=7000 HTTP/1.1
+###
+
+
+
+GET http://localhost:3003/ HTTP/1.1
+###
+
+GET http://localhost:3003/reset_and_insert_data?n=10000 HTTP/1.1
+###
+
+GET http://localhost:3003/get_first_values?n=5000 HTTP/1.1
+###

@@ -1,0 +1,113 @@
+
+>>>>>>>>>>>>>>>> cassowary run -u http://127.0.0.1:3001/ -c 20 -n 1000                                        ✔  22:26:14 
+
+Starting Load Test with 1000 requests using 20 concurrent users
+
+ 100% [========================================] 37.412ms
+
+
+ TCP Connect.....................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
+ Server Processing...............: Avg/mean=0.24ms 	Median=0.00ms	p(95)=1.00ms
+ Content Transfer................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 26729.39
+
+
+
+>>>>>>>>>>>>>>>> cassowary run -u http://127.0.0.1:3001/ -c 5 -n 1000                                         ✔  22:26:17 
+
+Starting Load Test with 1000 requests using 5 concurrent users
+
+ 100% [========================================] 45.279791ms
+
+
+ TCP Connect.....................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
+ Server Processing...............: Avg/mean=0.02ms 	Median=0.00ms	p(95)=0.00ms
+ Content Transfer................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 22084.91
+
+
+
+>>>>>>>>>>>>>>>> cassowary run -u "http://127.0.0.1:3001/get_first_values?n=1000" -c 5 -n 1000                ✔  22:26:20 
+
+Starting Load Test with 1000 requests using 5 concurrent users
+
+ 100% [========================================] 9.510183708s
+
+
+ TCP Connect.....................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
+ Server Processing...............: Avg/mean=46.77ms 	Median=47.00ms	p(95)=68.00ms
+ Content Transfer................: Avg/mean=0.02ms 	Median=0.00ms	p(95)=0.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 105.15
+
+
+
+>>>>>>>>>>>>>>>> cassowary run -u "http://127.0.0.1:3002/get_first_values?n=1000" -c 5 -n 1000        ✔  10s   22:27:01 
+
+Starting Load Test with 1000 requests using 5 concurrent users
+
+ 100% [========================================] 3.304812875s
+
+
+ TCP Connect.....................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
+ Server Processing...............: Avg/mean=15.85ms 	Median=16.00ms	p(95)=20.00ms
+ Content Transfer................: Avg/mean=0.01ms 	Median=0.00ms	p(95)=0.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 302.59
+
+
+
+>>>>>>>>>>>>>>>> cassowary run -u "http://127.0.0.1:3001/get_first_values?n=5000" -c 20 -n 1000        ✔  3s   22:27:13 
+
+Starting Load Test with 1000 requests using 20 concurrent users
+
+ 100% [========================================] 10.051890584s
+
+
+ TCP Connect.....................: Avg/mean=0.10ms 	Median=0.00ms	p(95)=1.00ms
+ Server Processing...............: Avg/mean=198.64ms 	Median=198.00ms	p(95)=299.00ms
+ Content Transfer................: Avg/mean=0.02ms 	Median=0.00ms	p(95)=0.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 99.48
+
+
+
+>>>>>>>>>>>>>>>> cassowary run -u "http://127.0.0.1:3002/get_first_values?n=5000" -c 20 -n 1000       ✔  10s   22:28:33 
+
+Starting Load Test with 1000 requests using 20 concurrent users
+
+ 100% [========================================] 3.047197375s
+
+
+ TCP Connect.....................: Avg/mean=0.25ms 	Median=0.00ms	p(95)=1.00ms
+ Server Processing...............: Avg/mean=59.78ms 	Median=58.00ms	p(95)=74.00ms
+ Content Transfer................: Avg/mean=0.03ms 	Median=0.00ms	p(95)=0.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 328.17
+
