@@ -69,55 +69,54 @@ Summary:
 
 ### Go:
 ```
-Starting Load Test with 1000 requests using 1 concurrent users
+Starting Load Test with 1000 requests using 5 concurrent users
 
- 100% [========================================] 5.862362872s
-
-
- TCP Connect.....................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
- Server Processing...............: Avg/mean=5.13ms 	Median=5.00ms	p(95)=7.00ms
- Content Transfer................: Avg/mean=0.01ms 	Median=0.00ms	p(95)=0.00ms
-
-Summary: 
- Total Req.......................: 1000
- Failed Req......................: 0
- DNS Lookup......................: 0.00ms
- Req/s...........................: 170.58
-```
-
-### Rust:
-```
-Starting Load Test with 1000 requests using 1 concurrent users
-
- 100% [========================================] 6.325665664s
+ 100% [========================================] 4.07025047s
 
 
  TCP Connect.....................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
- Server Processing...............: Avg/mean=5.53ms 	Median=5.00ms	p(95)=7.00ms
- Content Transfer................: Avg/mean=0.05ms 	Median=0.00ms	p(95)=0.00ms
-
-Summary: 
- Total Req.......................: 1000
- Failed Req......................: 0
- DNS Lookup......................: 0.00ms
- Req/s...........................: 158.09
-```
-
-### Cpp:
-```
-Starting Load Test with 1000 requests using 1 concurrent users
-
- 100% [========================================] 5.66829063s
-
-
- TCP Connect.....................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
- Server Processing...............: Avg/mean=5.10ms 	Median=5.00ms	p(95)=6.00ms
+ Server Processing...............: Avg/mean=19.59ms 	Median=19.00ms	p(95)=23.00ms
  Content Transfer................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
 
 Summary: 
  Total Req.......................: 1000
  Failed Req......................: 0
  DNS Lookup......................: 0.00ms
- Req/s...........................: 176.42
+ Req/s...........................: 245.69
+```
 
+### Rust:
+```
+Starting Load Test with 1000 requests using 5 concurrent users
+
+ 100% [========================================] 6.625182912s
+
+
+ TCP Connect.....................: Avg/mean=3.60ms 	Median=4.00ms	p(95)=4.00ms
+ Server Processing...............: Avg/mean=32.24ms 	Median=31.00ms	p(95)=42.00ms
+ Content Transfer................: Avg/mean=0.09ms 	Median=0.00ms	p(95)=0.00ms
+
+Summary: 
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 150.94
+```
+
+### Cpp:
+```
+Starting Load Test with 1000 requests using 5 concurrent users
+
+ 100% [========================================] 1.493970686s
+
+
+ TCP Connect.....................: Avg/mean=0.60ms 	Median=1.00ms	p(95)=1.00ms
+ Server Processing...............: Avg/mean=6.79ms 	Median=6.50ms	p(95)=9.00ms
+ Content Transfer................: Avg/mean=0.01ms 	Median=0.00ms	p(95)=0.00ms
+
+Summary: 
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 669.36
 ```

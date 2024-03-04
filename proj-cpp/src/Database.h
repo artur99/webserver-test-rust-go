@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cassert>
+#include <atomic>
 #include <pqxx/pqxx>
 #include <string_view>
 
@@ -14,11 +14,9 @@ public:
     };
 
 public:
-    Database()
-        : mConnection("user=postgres password=postgres host=localhost port=5432 dbname=postgres "
-                      "target_session_attrs=read-write")
+    Database(uint32_t numConnections) : mActiveConnection(0), mNumConnections(numConnections)
     {
-        assert(mConnection.is_open());
+        initConnections();
     }
 
     void reset();
@@ -27,5 +25,16 @@ public:
     std::vector<Entry> getEntries(uint32_t n);
 
 private:
-    pqxx::connection mConnection;
+    void initConnections();
+    pqxx::connection &getConnection()
+    {
+        uint32_t activeConnection = mActiveConnection;
+        mActiveConnection = (mActiveConnection + 1) % mNumConnections;
+        return mConnections[activeConnection];
+    }
+
+private:
+    std::atomic<uint32_t> mActiveConnection;
+    uint32_t mNumConnections;
+    std::vector<pqxx::connection> mConnections;
 };
