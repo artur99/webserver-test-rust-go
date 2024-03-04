@@ -30,6 +30,14 @@ cd ./proj-rust
 cargo run
 ```
 
+4. Starting the cpp server (`:3004`)
+```bash
+cd ./proj-cpp
+./configure.sh
+./build.sh
+./run.sh
+```
+
 ## Testing
 1. Either using the test calls defined in `./test.http`
 2. Or what I used for benchmarking, cassowary, seems good. Install it with `npm i -g cassowary` (might need sudo) and then, for example:
@@ -37,6 +45,7 @@ cargo run
 cassowary run -u "http://127.0.0.1:3001/get_first_values?n=5000"
 cassowary run -u "http://127.0.0.1:3002/get_first_values?n=5000"
 cassowary run -u "http://127.0.0.1:3003/get_first_values?n=5000"
+cassowary run -u "http://127.0.0.1:3004/get_first_values?n=5000"
 ```
 
 ## Current results
@@ -60,36 +69,55 @@ Summary:
 
 ### Go:
 ```
-Starting Load Test with 1000 requests using 5 concurrent users
+Starting Load Test with 1000 requests using 1 concurrent users
 
- 100% [========================================] 3.252455333s
+ 100% [========================================] 5.862362872s
 
 
- TCP Connect.....................: Avg/mean=0.20ms      Median=0.00ms   p(95)=0.00ms
- Server Processing...............: Avg/mean=15.63ms     Median=15.00ms  p(95)=19.00ms
- Content Transfer................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+ TCP Connect.....................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
+ Server Processing...............: Avg/mean=5.13ms 	Median=5.00ms	p(95)=7.00ms
+ Content Transfer................: Avg/mean=0.01ms 	Median=0.00ms	p(95)=0.00ms
 
-Summary:
+Summary: 
  Total Req.......................: 1000
  Failed Req......................: 0
  DNS Lookup......................: 0.00ms
- Req/s...........................: 307.46
+ Req/s...........................: 170.58
 ```
 
 ### Rust:
 ```
-Starting Load Test with 1000 requests using 5 concurrent users
+Starting Load Test with 1000 requests using 1 concurrent users
 
- 100% [========================================] 4.112901291s
+ 100% [========================================] 6.325665664s
 
 
- TCP Connect.....................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
- Server Processing...............: Avg/mean=19.92ms     Median=19.00ms  p(95)=29.00ms
- Content Transfer................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+ TCP Connect.....................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
+ Server Processing...............: Avg/mean=5.53ms 	Median=5.00ms	p(95)=7.00ms
+ Content Transfer................: Avg/mean=0.05ms 	Median=0.00ms	p(95)=0.00ms
 
-Summary:
+Summary: 
  Total Req.......................: 1000
  Failed Req......................: 0
  DNS Lookup......................: 0.00ms
- Req/s...........................: 243.14
+ Req/s...........................: 158.09
+```
+
+### Cpp:
+```
+Starting Load Test with 1000 requests using 1 concurrent users
+
+ 100% [========================================] 5.66829063s
+
+
+ TCP Connect.....................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
+ Server Processing...............: Avg/mean=5.10ms 	Median=5.00ms	p(95)=6.00ms
+ Content Transfer................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
+
+Summary: 
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 176.42
+
 ```
