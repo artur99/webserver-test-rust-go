@@ -28,8 +28,8 @@ private:
     void initConnections();
     pqxx::connection &getConnection()
     {
-        uint32_t activeConnection = mActiveConnection;
-        mActiveConnection = (mActiveConnection + 1) % mNumConnections;
+        uint32_t activeConnection = mActiveConnection++;
+        mActiveConnection = mActiveConnection % mNumConnections;
         return mConnections[activeConnection];
     }
 
