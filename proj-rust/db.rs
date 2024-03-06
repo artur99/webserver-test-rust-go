@@ -20,7 +20,9 @@ pub struct Database {
 impl Database {
     pub fn new() -> Database {
         let mut cfg = Config::new();
-        cfg.host = Some("localhost".to_string());
+        let db_host = std::env::var("DB_HOST").unwrap_or("localhost".to_string());
+
+        cfg.host = Some(db_host);
         cfg.user = Some("postgres".to_string());
         cfg.password = Some("postgres".to_string());
         cfg.dbname = Some("postgres".to_string());
