@@ -3,9 +3,19 @@
 #include <iostream>
 #include <string>
 
+void Database::initConnections()
+{
+    for (uint32_t i = 0; i < mNumConnections; ++i)
+    {
+        mConnections.emplace_back("user=postgres password=postgres host=localhost port=5432 dbname=postgres "
+                                  "target_session_attrs=read-write");
+        assert(mConnections.back().is_open());
+    }
+}
+
 void Database::reset()
 {
-    pqxx::work w(mConnection);
+    pqxx::work w(getConnection());
 
     w.exec("DROP TABLE IF EXISTS data");
     w.exec(R"(CREATE TABLE data (
@@ -19,7 +29,7 @@ void Database::reset()
 
 void Database::insertEntry(std::string_view name, std::string_view value)
 {
-    pqxx::work w(mConnection);
+    pqxx::work w(getConnection());
 
     w.exec_params("INSERT INTO data(name, value) VALUES ($1, $2)", name.data(), value.data());
 
@@ -28,7 +38,7 @@ void Database::insertEntry(std::string_view name, std::string_view value)
 
 void Database::insertEntries(std::vector<Entry> const &entries)
 {
-    pqxx::work w(mConnection);
+    pqxx::work w(getConnection());
 
     for (auto const &entry : entries)
     {
@@ -40,7 +50,7 @@ void Database::insertEntries(std::vector<Entry> const &entries)
 
 std::vector<Database::Entry> Database::getEntries(uint32_t n)
 {
-    pqxx::work w(mConnection);
+    pqxx::work w(getConnection());
 
     pqxx::result rows = w.exec("SELECT name, value FROM data");
     assert(rows.size() == n);

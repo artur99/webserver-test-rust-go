@@ -6,7 +6,9 @@
 #include <cstdlib>
 #include <exception>
 #include <iostream>
+#include <memory>
 #include <string>
+#include <thread>
 
 #include "App.h"
 #include "Database.h"
@@ -28,78 +30,92 @@ std::vector<Database::Entry> generateData(int n)
 
 int main()
 {
-    int32_t port = 3004;
+    constexpr int32_t PORT = 3004;
+    constexpr uint32_t NUM_CONNECTIONS = 10;
 
-    Database db;
-    std::cout << "Listening on http://127.0.0.1:" << port << std::endl;
+    Database db(NUM_CONNECTIONS);
+    std::cout << "Listening on http://127.0.0.1:" << PORT << std::endl;
 
-    uWS::App()
-        .get("/",
-             [](auto *res, auto *req) {
-                 res->writeStatus(uWS::HTTP_200_OK);
-                 res->writeHeader("Content-Type", "text/plain");
-                 res->end("Hello, World!");
-             })
-        .get("/reset_and_insert_data",
-             [&db](auto *res, auto *req) {
-                 /* Make sure we have the right query */
-                 auto query = req->getQuery().data();
-                 assert(query[0] == 'n' && query[1] == '=');
-                 query += 2;
+    std::array<std::unique_ptr<std::thread>, NUM_CONNECTIONS> threads;
 
-                 /* Convert query to long */
-                 char *endptr = nullptr;
-                 long n = strtol(query, &endptr, 10);
-                 assert(endptr != query);
+    for (auto &thread : threads)
+    {
+        thread = std::make_unique<std::thread>([&] {
+            uWS::App()
+                .get("/",
+                     [](auto *res, auto *req) {
+                         res->writeStatus(uWS::HTTP_200_OK);
+                         res->writeHeader("Content-Type", "text/plain");
+                         res->end("Hello, World!");
+                     })
+                .get("/reset_and_insert_data",
+                     [&db](auto *res, auto *req) {
+                         /* Make sure we have the right query */
+                         auto query = req->getQuery().data();
+                         assert(query[0] == 'n' && query[1] == '=');
+                         query += 2;
 
-                 auto begin = std::chrono::system_clock::now();
+                         /* Convert query to long */
+                         char *endptr = nullptr;
+                         long n = strtol(query, &endptr, 10);
+                         assert(endptr != query);
 
-                 auto data = generateData(n);
+                         auto begin = std::chrono::system_clock::now();
 
-                 db.reset();
-                 for (auto const &entry : data)
-                 {
-                     db.insertEntry(entry.name, entry.value);
-                 }
-                 auto end = std::chrono::system_clock::now();
-                 auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+                         auto data = generateData(n);
 
-                 res->writeStatus(uWS::HTTP_200_OK);
-                 res->writeHeader("Content-Type", "text/plain");
-                 char message[1024];
-                 sprintf(message, "Inserted %ld entries in db in %ld ms.", n, duration);
-                 res->end(message);
-             })
-        .get("/get_first_values",
-             [&](auto *res, auto *req) {
-                 /* Make sure we have the right query */
-                 auto query = req->getQuery().data();
-                 assert(query[0] == 'n' && query[1] == '=');
-                 query += 2;
+                         db.reset();
+                         for (auto const &entry : data)
+                         {
+                             db.insertEntry(entry.name, entry.value);
+                         }
+                         auto end = std::chrono::system_clock::now();
+                         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
 
-                 /* Convert query to long */
-                 char *endptr = nullptr;
-                 long n = strtol(query, &endptr, 10);
-                 assert(endptr != query);
+                         res->writeStatus(uWS::HTTP_200_OK);
+                         res->writeHeader("Content-Type", "text/plain");
+                         char message[1024];
+                         sprintf(message, "Inserted %ld entries in db in %ld ms.", n, duration);
+                         res->end(message);
+                     })
+                .get("/get_first_values",
+                     [&](auto *res, auto *req) {
+                         /* Make sure we have the right query */
+                         auto query = req->getQuery().data();
+                         assert(query[0] == 'n' && query[1] == '=');
+                         query += 2;
 
-                 auto begin = std::chrono::system_clock::now();
+                         /* Convert query to long */
+                         char *endptr = nullptr;
+                         long n = strtol(query, &endptr, 10);
+                         assert(endptr != query);
 
-                 auto entries = db.getEntries(n);
+                         auto begin = std::chrono::system_clock::now();
 
-                 std::sort(entries.begin(), entries.end(), [](Database::Entry const &lhs, Database::Entry const &rhs) {
-                     return lhs.value < rhs.value;
-                 });
+                         auto entries = db.getEntries(n);
 
-                 auto end = std::chrono::system_clock::now();
+                         std::sort(entries.begin(), entries.end(),
+                                   [](Database::Entry const &lhs, Database::Entry const &rhs) {
+                                       return lhs.value < rhs.value;
+                                   });
 
-                 auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+                         auto end = std::chrono::system_clock::now();
 
-                 res->writeStatus(uWS::HTTP_200_OK);
-                 res->writeHeader("Content-Type", "text/plain");
-                 char message[1024];
-                 sprintf(message, "Read %ld entries from db in %ld ms.", n, duration);
-                 res->end(message);
-             })
-        .listen(3004, [](auto *token) { (void)token; })
-        .run();
+                         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+
+                         res->writeStatus(uWS::HTTP_200_OK);
+                         res->writeHeader("Content-Type", "text/plain");
+                         char message[1024];
+                         sprintf(message, "Read %ld entries from db in %ld ms.", n, duration);
+                         res->end(message);
+                     })
+                .listen(PORT, [](auto *token) { (void)token; })
+                .run();
+        });
+    }
+
+    for (auto &thread : threads)
+    {
+        thread->join();
+    }
 }
