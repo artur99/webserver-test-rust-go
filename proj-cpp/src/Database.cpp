@@ -5,10 +5,24 @@
 
 void Database::initConnections()
 {
+    char defaultHost[100] = "localhost";
+    char connectionString[200];
+    char const *dbHost = std::getenv("DB_HOST");
+    if(dbHost)
+    {
+        strncpy(defaultHost, dbHost, sizeof(defaultHost) - 1);
+    }
+
+    snprintf(
+        connectionString,
+        sizeof(connectionString),
+        "user=postgres password=postgres host=%s port=5432 dbname=postgres target_session_attrs=read-write",
+        defaultHost
+    );
+
     for (uint32_t i = 0; i < mNumConnections; ++i)
     {
-        mConnections.emplace_back("user=postgres password=postgres host=localhost port=5432 dbname=postgres "
-                                  "target_session_attrs=read-write");
+        mConnections.emplace_back(connectionString);
         assert(mConnections.back().is_open());
     }
 }
