@@ -10,6 +10,62 @@ services:
       - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
+
+  proj-node:
+    image: proj-node
+    build:
+      context: ./proj-node
+    ports:
+      - 3001:3001
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+
+  proj-go:
+    image: proj-go
+    build:
+      context: ./proj-go
+    ports:
+      - 3002:3002
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+
+  proj-rust:
+    image: proj-rust
+    build:
+      context: ./proj-rust
+    ports:
+      - 3003:3003
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+
+  proj-cpp:
+    image: proj-cpp
+    build:
+      context: ./proj-cpp
+    ports:
+      - 3004:3004
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+
+  proj-bun:
+    image: proj-bun
+    build:
+      context: ./proj-bun
+    ports:
+      - 3005:3005
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+
 volumes:
   db:
     driver: local
