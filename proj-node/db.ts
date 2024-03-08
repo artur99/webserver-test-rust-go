@@ -1,7 +1,7 @@
 import * as postgres from 'postgres'
 
 const sql = postgres({
-    host: 'localhost',
+    host: process.env.DB_HOST || 'localhost',
     port: 5432,
     database: 'postgres',
     username: 'postgres',

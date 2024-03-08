@@ -1,7 +1,8 @@
 {
     "dependencies": {
         "hyper-express": "^6.5.8",
-        "postgres": "^3.3.4"
+        "postgres": "^3.3.4",
+        "typescript": "^5.3"
     },
     "scripts": {
         "start": "tsc main.ts && node main.js"
