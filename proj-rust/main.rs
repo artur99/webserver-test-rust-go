@@ -66,8 +66,8 @@ async fn main() {
         .route("/get_first_values", get(get_first_values))
         .with_state(state);
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3003));
-    println!("Listening on http://{}", addr);
+    let addr = SocketAddr::from(([0, 0, 0, 0], 3003));
+    println!("Listening on http://localhost:3003/");
 
     axum::Server::bind(&addr)
         .serve(app.into_make_service())

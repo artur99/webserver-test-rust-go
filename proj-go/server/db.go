@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/go-pg/pg/v10"
+	"os"
 )
 
 type DataEntry struct {
@@ -10,9 +11,14 @@ type DataEntry struct {
 }
 
 func DbConnect() *pg.DB {
+	db_host := os.Getenv("DB_HOST")
+	if db_host == "" {
+		db_host = "localhost"
+	}
+
 	return pg.Connect(&pg.Options{
 		PoolSize: 10,
-		Addr:     "localhost:5432",
+		Addr:     db_host + ":5432",
 		User:     "postgres",
 		Password: "postgres",
 		Database: "postgres",
