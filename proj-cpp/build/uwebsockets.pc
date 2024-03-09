@@ -1,9 +1,0 @@
-prefix=/home/stefan/.conan2/p/uwebsd516212837341/p
-includedir=${prefix}/include
-includedir1=${prefix}/include/uWebSockets
-
-Name: uwebsockets
-Description: Conan package: uwebsockets
-Version: 20.60.0
-Cflags: -I"${includedir}" -I"${includedir1}"
-Requires: zlib usockets
