@@ -1,0 +1,11 @@
+prefix=/home/stefan/.conan2/p/b/libpqb9c229540f94d/p
+libdir=${prefix}/lib
+includedir=${prefix}/include
+bindir=${prefix}/bin
+
+Name: libpq-pq
+Description: Conan component: libpq-pq
+Version: 15.4
+Libs: -L"${libdir}" -lpq -lpthread
+Cflags: -I"${includedir}"
+Requires: libpq-pgcommon

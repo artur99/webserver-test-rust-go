@@ -1,0 +1,11 @@
+prefix=/home/stefan/.conan2/p/b/libpq53d5a53d2cdd2/p
+libdir=${prefix}/lib
+includedir=${prefix}/include
+bindir=${prefix}/bin
+
+Name: libpqxx
+Description: Conan component: libpqxx-libpqxx
+Version: 7.9.0
+Libs: -L"${libdir}" -lpqxx
+Cflags: -I"${includedir}"
+Requires: libpq

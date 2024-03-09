@@ -1,0 +1,10 @@
+prefix=/home/stefan/.conan2/p/b/libpqb9c229540f94d/p
+libdir=${prefix}/lib
+includedir=${prefix}/include
+bindir=${prefix}/bin
+
+Name: libpq-pgport
+Description: Conan component: libpq-pgport
+Version: 15.4
+Libs: -L"${libdir}" -lpgport -lpgport_shlib
+Cflags: -I"${includedir}"
