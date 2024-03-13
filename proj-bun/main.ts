@@ -29,7 +29,7 @@ interface Response {
     data: any,
 }
 
-app.get('/a', (c) => {
+app.get('/', (c) => {
     return c.text('Hello World')
 })
 
