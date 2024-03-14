@@ -55,6 +55,17 @@ services:
     environment:
       - DB_HOST=db
 
+  proj-bun:
+    image: proj-bun
+    build:
+      context: ./proj-bun
+    ports:
+      - 3005:3005
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+
 volumes:
   db:
     driver: local

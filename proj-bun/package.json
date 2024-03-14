@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "hono": "^4.0.10",
+    "postgres": "^3.3.4",
+    "typescript": "^5.3"
+  },
+  "scripts": {
+    "start": "tsc main.ts && node main.js"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.0.8"
+  }
+}
