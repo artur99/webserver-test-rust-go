@@ -13,7 +13,7 @@
 #include "App.h"
 #include "Database.h"
 
-std::vector<Database::Entry> generateData(int n)
+std::vector<Database::Entry> generateData(int n) noexcept
 {
     std::vector<Database::Entry> result(n);
     srand(time(NULL));
@@ -38,9 +38,9 @@ int main()
 
     std::array<std::unique_ptr<std::thread>, NUM_CONNECTIONS> threads;
 
-    for (auto &thread : threads)
+    for (uint32_t i = 0; i < threads.size(); ++i)
     {
-        thread = std::make_unique<std::thread>([&] {
+        threads[i] = std::make_unique<std::thread>([&db, i] {
             uWS::App()
                 .get("/",
                      [](auto *res, auto *req) {
@@ -49,7 +49,7 @@ int main()
                          res->end("Hello, World!");
                      })
                 .get("/reset_and_insert_data",
-                     [&db](auto *res, auto *req) {
+                     [&db, threadId = i](auto *res, auto *req) {
                          /* Make sure we have the right query */
                          auto query = req->getQuery().data();
                          assert(query[0] == 'n' && query[1] == '=');
@@ -64,11 +64,9 @@ int main()
 
                          auto data = generateData(n);
 
-                         db.reset();
-                         for (auto const &entry : data)
-                         {
-                             db.insertEntry(entry.name, entry.value);
-                         }
+                         db.reset(threadId);
+                         db.insertEntries(threadId, data);
+
                          auto end = std::chrono::system_clock::now();
                          auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
 
@@ -79,7 +77,7 @@ int main()
                          res->end(message);
                      })
                 .get("/get_first_values",
-                     [&](auto *res, auto *req) {
+                     [&db, threadId = i](auto *res, auto *req) {
                          /* Make sure we have the right query */
                          auto query = req->getQuery().data();
                          assert(query[0] == 'n' && query[1] == '=');
@@ -92,7 +90,7 @@ int main()
 
                          auto begin = std::chrono::system_clock::now();
 
-                         auto entries = db.getEntries(n);
+                         auto entries = db.getEntries(threadId, n);
 
                          std::sort(entries.begin(), entries.end(),
                                    [](Database::Entry const &lhs, Database::Entry const &rhs) {

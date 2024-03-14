@@ -1,6 +1,5 @@
 #pragma once
 
-#include <atomic>
 #include <pqxx/pqxx>
 #include <string_view>
 
@@ -14,27 +13,19 @@ public:
     };
 
 public:
-    Database(uint32_t numConnections) : mActiveConnection(0), mNumConnections(numConnections)
+    Database(uint32_t numConnections) noexcept
     {
-        initConnections();
+        initConnections(numConnections);
     }
 
-    void reset();
-    void insertEntry(std::string_view name, std::string_view value);
-    void insertEntries(std::vector<Entry> const &entries);
-    std::vector<Entry> getEntries(uint32_t n);
+    void reset(uint32_t threadId) noexcept;
+    void insertEntry(uint32_t threadId, std::string_view name, std::string_view value) noexcept;
+    void insertEntries(uint32_t threadId, std::vector<Entry> const &entries) noexcept;
+    std::vector<Entry> getEntries(uint32_t threadId, uint32_t n) noexcept;
 
 private:
-    void initConnections();
-    pqxx::connection &getConnection()
-    {
-        uint32_t activeConnection = mActiveConnection++;
-        mActiveConnection = mActiveConnection % mNumConnections;
-        return mConnections[activeConnection];
-    }
+    void initConnections(uint32_t numConnections) noexcept;
 
 private:
-    std::atomic<uint32_t> mActiveConnection;
-    uint32_t mNumConnections;
     std::vector<pqxx::connection> mConnections;
 };

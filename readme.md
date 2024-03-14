@@ -140,16 +140,17 @@ Summary:
 ```
 Starting Load Test with 1000 requests using 3 concurrent users
 
- 100% [========================================] 1.810664959s
+ 100% [========================================] 1.280602057s
 
 
- TCP Connect.....................: Avg/mean=0.33ms      Median=0.00ms   p(95)=0.00ms
- Server Processing...............: Avg/mean=4.80ms      Median=5.00ms   p(95)=6.00ms
- Content Transfer................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+ TCP Connect.....................: Avg/mean=1.00ms 	Median=1.00ms	p(95)=1.00ms
+ Server Processing...............: Avg/mean=5.75ms 	Median=5.00ms	p(95)=8.00ms
+ Content Transfer................: Avg/mean=0.00ms 	Median=0.00ms	p(95)=0.00ms
 
 Summary:
  Total Req.......................: 1000
  Failed Req......................: 0
  DNS Lookup......................: 0.00ms
- Req/s...........................: 552.28
+ Req/s...........................: 780.88
+
 ```
