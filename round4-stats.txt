@@ -1,0 +1,72 @@
+# Tests run on docker (go version 1.19)
+
+## Test: proj-node (localhost:3001)
+
+Starting Load Test with 1300 requests using 6 concurrent users
+
+ 100% [========================================] 15.481896375s
+
+
+ TCP Connect.....................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+ Server Processing...............: Avg/mean=69.72ms     Median=67.00ms  p(95)=96.00ms
+ Content Transfer................: Avg/mean=0.58ms      Median=1.00ms   p(95)=1.00ms
+
+Summary:
+ Total Req.......................: 1300
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 83.97
+
+
+## Test: proj-go (localhost:3002)
+
+Starting Load Test with 1300 requests using 6 concurrent users
+
+ 100% [========================================] 2.20975725s
+
+
+ TCP Connect.....................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+ Server Processing...............: Avg/mean=9.12ms      Median=9.00ms   p(95)=13.00ms
+ Content Transfer................: Avg/mean=0.11ms      Median=0.00ms   p(95)=1.00ms
+
+Summary:
+ Total Req.......................: 1300
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 588.30
+
+
+## Test: proj-rust (localhost:3003)
+
+Starting Load Test with 1300 requests using 6 concurrent users
+
+ 100% [========================================] 2.093894625s
+
+
+ TCP Connect.....................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+ Server Processing...............: Avg/mean=8.63ms      Median=8.00ms   p(95)=11.00ms
+ Content Transfer................: Avg/mean=0.09ms      Median=0.00ms   p(95)=1.00ms
+
+Summary:
+ Total Req.......................: 1300
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 620.85
+
+
+## Test: proj-cpp (localhost:3004)
+
+Starting Load Test with 1000 requests using 6 concurrent users
+
+ 100% [========================================] 1.50753275s
+
+
+ TCP Connect.....................: Avg/mean=0.00ms      Median=0.00ms   p(95)=0.00ms
+ Server Processing...............: Avg/mean=8.40ms      Median=5.00ms   p(95)=21.00ms
+ Content Transfer................: Avg/mean=0.01ms      Median=0.00ms   p(95)=0.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 0.00ms
+ Req/s...........................: 663.34
